@@ -2,7 +2,7 @@
 
 ## 🤔 about
 
-本家が 1.45 までしか対応していないので、アップデートを試みる。
+本家が 1.45 までしか対応していないので、1.57.0 にアップデートを試みる。
 
 This docker image extends [lambda ci `provided.al2`](https://github.com/lambci/docker-lambda#documentation) builder docker image, a faithful reproduction of the actual AWS "**provided.al2**" Lambda runtime environment,
 and installs [rustup](https://rustup.rs/) and the _stable_ rust toolchain.
