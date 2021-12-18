@@ -1,10 +1,11 @@
 # AWS Lambda [Rust](https://www.rust-lang.org/) docker builder 🐑 🦀 🐳 [![Build Status](https://github.com/softprops/lambda-rust/workflows/Main/badge.svg)](https://github.com/softprops/lambda-rust/actions)
 
-
 ## 🤔 about
 
+本家が 1.45 までしか対応していないので、アップデートを試みる。
+
 This docker image extends [lambda ci `provided.al2`](https://github.com/lambci/docker-lambda#documentation) builder docker image, a faithful reproduction of the actual AWS "**provided.al2**" Lambda runtime environment,
-and installs [rustup](https://rustup.rs/) and the *stable* rust toolchain.
+and installs [rustup](https://rustup.rs/) and the _stable_ rust toolchain.
 
 This provides a build environment, consistent with your target execution environment for predictable results.
 
@@ -47,6 +48,7 @@ $ docker run --rm \
     -v ${HOME}/.cargo/git:/cargo/git \
     softprops/lambda-rust
 ```
+
 > 💡 The -v (volume mount) flags for `/cargo/{registry,git}` are optional but when supplied, provides a much faster turn around when doing iterative development
 
 Note that `-u $(id -u):$(id -g)` argument is crucial for the container to produce artifacts
@@ -89,9 +91,10 @@ $ docker run --rm \
 
 If you want to customize certain parts of the build process, you can leverage hooks that this image provides.
 Hooks are just shell scripts that are invoked in a specific order, so you can customize the process as you wish. The following hooks exist:
-* `install`: run before `cargo build` - useful for installing native dependencies on the lambda environment
-* `build`: run after `cargo build`, but before packaging the executable into a zip - useful when modifying the executable after compilation
-* `package`: run after packaging the executable into a zip - useful for adding extra files into the zip file
+
+- `install`: run before `cargo build` - useful for installing native dependencies on the lambda environment
+- `build`: run after `cargo build`, but before packaging the executable into a zip - useful when modifying the executable after compilation
+- `package`: run after packaging the executable into a zip - useful for adding extra files into the zip file
 
 The hooks' names are predefined and must be placed in a directory `.lambda-rust` in the project root.
 
@@ -106,6 +109,7 @@ builds a zip file, named after the binary, containing your binary file renamed t
 In order to prevent the creation of an intermediate `.zip` artifact when testing your lambdas locally, pass `-e PACKAGE=false` during the build. After that the necessary
 output (not zipped) is available under `target/lambda/{profile}/output/{your-lambda-binary-name}` dir.
 You will see both `bootstrap` and `bootstrap.debug` files there.
+
 > **⚠️ Note:** `PACKAGE=false` prevents `package` hook from running.
 
 You can then invoke this bootstap executable with the lambda-ci docker image for the `provided.al2` AWS lambda runtime with a one off container.
@@ -160,7 +164,7 @@ $ curl -d '{}' \
     http://localhost:9001/2015-03-31/functions/myfunction/invocations
 ```
 
-You can also use the `aws` cli to invoke your function locally.  The `--payload` is a means of providing your function's input.
+You can also use the `aws` cli to invoke your function locally. The `--payload` is a means of providing your function's input.
 
 ```sh
 $ aws lambda invoke \
@@ -185,16 +189,17 @@ $ cargo install cargo-aws-lambda
 ```
 
 To compile and deploy in your project directory
+
 ```sh
 $ cargo aws-lambda {your aws function's full ARN} {your-binary-name}
 ```
 
 To list all options
+
 ```sh
 $ cargo aws-lambda --help
 ```
 
 More instructions can be found [here](https://github.com/vvilhonen/cargo-aws-lambda).
-
 
 Doug Tangren (softprops) 2020
