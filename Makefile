@@ -1,4 +1,4 @@
-VERSION ?= 0.4.1
+VERSION ?= 0.4.2
 RUST_VERSION ?= 1.57.0
 REPO ?= n0pj/lambda-rust
 TAG ?= "$(REPO):$(VERSION)-rust-$(RUST_VERSION)"
